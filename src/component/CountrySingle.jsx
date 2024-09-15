@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Col, Container, Row, Image, Spinner } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CountrySingle = () => {
@@ -25,24 +26,45 @@ const CountrySingle = () => {
       });
   }, [country.capital]);
   if (isWeatherLoading) {
+    return (
+      <Col className="text-center-m-5">
+        <Spinner
+        animation="border"
+        role="status"
+        className="center"
+        variant="info">
+          <span className="visually-hidden">Loading...</span>
 
+        </Spinner>
+      </Col>
+    )
 
+    }
 return(
 
     <Container fluid>
         <Row>
             <Col className="mt-5 d-flex justify-content-center">
-                <Img src={country.flags.png}
-                    alt={country.name.common}
-                    style={{width: "18rem"}}
-                    />
+                <Image src={country.flags.svg} />
+            </Col>
+            <Col>
+                <h2>{country.name.common}</h2>
+                <h3>{country.capital}</h3>
+                <div>
+                  <p>
+                    Right now it is <strong>{parseInt(weather.main.temp)}</strong>
+                    degree in {country.capital} and {weather.weather[0].description}
+                  </p>
+                  <Image src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}/>
+                </div>
+                <Button variant="light" onClick={() => navigate("/countries")}>
+            Back to Countries
+          </Button>
             </Col>
         </Row>
+
     </Container>
         )
-    return <div>loading weather ...</div>;
-  }
-  return <div>CountrySingle is here</div>;
 };
 
 export default CountrySingle;
