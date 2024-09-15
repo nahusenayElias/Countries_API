@@ -2,16 +2,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
 import {
+  Button,
   Card,
   Col,
   Container,
   Form,
   ListGroup,
-  ListGroupItem,
   Row,
   Spinner,
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { addFavourite, removeFavourite } from "../store/favouritesSlice";
+import { Link } from "react-router-dom";
+import { search } from "../store/countriesSlice";
 
 const Countries = () => {
   const dispatch = useDispatch();
@@ -50,7 +52,7 @@ const Countries = () => {
               type="search"
               className="me-2"
               placeholder="Search"
-              aria-label="search"
+              aria-label="Search"
               onChange={(e) => dispatch(search(e.target.value))}
             />
           </Form>
@@ -58,66 +60,78 @@ const Countries = () => {
       </Row>
       <Row xs={2} md={3} lg={4} className="g-3">
         {countries
-        .filter((country) => {
-          return country.name.common
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
-        })
-        .map(country) => (
-          <Col className="mt-5" key={country.name.official}>
-            <Card className="h-100">
-              <LinkContainer
-                to={`/countries/${country.name.common}`}
-                state={{ country: country }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={country.flags.svg}
-                  alt={country.name.common}
-                  className="rounded h-50"
-                  style={{
-                    objectFit: "cover",
-                    minHeight: "200px",
-                    maxHeight: "200px",
-                  }}
-                />
-              </LinkContainer>
-              <Card.Body className="d-flex flex column">
-                <Card.Title>{country.name.common}</Card.Title>
-                <Card.Subtitle className="mb-5 text-muted">
-                  {country.name.official}
-                </Card.Subtitle>
-                <ListGroup
-                  variant="flush"
-                  className="flex-grow-1 justify-content-center"
+          .filter((country) => {
+            return country.name.common
+              .toLowerCase()
+              .includes(searchInput.toLowerCase());
+          })
+          .map((country) => (
+            <Col className="mt-5" key={country.name.official}>
+              <Card className="h-100">
+                <Link
+                  to={`/countries/${country.name.common}`}
+                  state={{ country: country }}
                 >
-                  <ListGroupItem>
-                    <i className="bi bi-people me-2">
-                      {country.population.toLocaleString()}
-                    </i>
-                  </ListGroupItem>
+                  <Card.Img
+                    variant="top"
+                    src={country.flags.svg}
+                    alt={country.name.common}
+                    className="rounded h-50"
+                    style={{
+                      objectFit: "cover",
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                    }}
+                  />
+                </Link>
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title>{country.name.common}</Card.Title>
+                  <Card.Subtitle className="mb-5 text-muted">
+                    {country.name.official}
+                  </Card.Subtitle>
+                  <ListGroup
+                    variant="flush"
+                    className="flex-grow-1 justify-content-center"
+                  >
+                    <ListGroup.Item>
+                      <i className="bi bi-people me-2">
+                        {country.population.toLocaleString()}
+                      </i>
+                    </ListGroup.Item>
 
-                  <ListGroupItem>
-                    <i className="me-2">
-                      {Object.values(country.currencies || {})
-                        .map((currency) => currency.name)
-                        .join(",") || "No currency"}
-                    </i>
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    <i className="me-2">
-                      {Object.values(country.languages || {})
-                        .map((language) => language)
-                        .join(",") || "No language"}
-                    </i>
-                  </ListGroupItem>
-                  <Button variant="primary" onclick={() => dispatch(addFavourites(country.name.common))}></Button>
-                </ListGroup>
-              </Card.Body>
-            </Card>
-          </Col>
-
-        ))}
+                    <ListGroup.Item>
+                      <i className="me-2">
+                        {Object.values(country.currencies || {})
+                          .map((currency) => currency.name)
+                          .join(",") || "No currency"}
+                      </i>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <i className="me-2">
+                        {Object.values(country.languages || {})
+                          .map((language) => language)
+                          .join(",") || "No language"}
+                      </i>
+                    </ListGroup.Item>
+                  </ListGroup>
+                  <Button
+                    variant="primary"
+                    onClick={() => dispatch(addFavourite(country.name.common))}
+                  >
+                    Add Favourite
+                  </Button>
+                  <Button
+                    variant="warning"
+                    onClick={() =>
+                      dispatch(removeFavourite(country.name.common))
+                    }
+                  >
+                    Remove Favourite
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
       </Row>
     </Container>
   );
