@@ -25,6 +25,21 @@ const CountrySingle = () => {
       });
   }, [country.capital]);
   if (isWeatherLoading) {
+
+
+return(
+
+    <Container fluid>
+        <Row>
+            <Col className="mt-5 d-flex justify-content-center">
+                <Img src={country.flags.png}
+                    alt={country.name.common}
+                    style={{width: "18rem"}}
+                    />
+            </Col>
+        </Row>
+    </Container>
+        )
     return <div>loading weather ...</div>;
   }
   return <div>CountrySingle is here</div>;

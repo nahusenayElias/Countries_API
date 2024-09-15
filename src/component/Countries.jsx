@@ -57,7 +57,13 @@ const Countries = () => {
         </Col>
       </Row>
       <Row xs={2} md={3} lg={4} className="g-3">
-        {countries.map((country) => (
+        {countries
+        .filter((country) => {
+          return country.name.common
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+        })
+        .map(country) => (
           <Col className="mt-5" key={country.name.official}>
             <Card className="h-100">
               <LinkContainer
@@ -105,10 +111,12 @@ const Countries = () => {
                         .join(",") || "No language"}
                     </i>
                   </ListGroupItem>
+                  <Button variant="primary" onclick={() => dispatch(addFavourites(country.name.common))}></Button>
                 </ListGroup>
               </Card.Body>
             </Card>
           </Col>
+
         ))}
       </Row>
     </Container>
