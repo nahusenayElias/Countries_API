@@ -5,6 +5,7 @@ const initialState = {
   isLoading: true,
   search: "",
 };
+
 export const countriesSlice = createSlice({
   name: "countries",
   initialState,
