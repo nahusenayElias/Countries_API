@@ -52,53 +52,47 @@ const logout = () => {
 };
 
 const addFavouriteToFirebase = async (uid, name) => {
-    try {
-        await addDoc(collection(db, `users/${uid}/favourites`),{name}
-        );
-        console.log("Favourite added to Firebase");
-    } catch(error) {
-        console.log("Error removing favourite from firebase", error);
-    }
-}
+  try {
+    await addDoc(collection(db, `users/${uid}/favourites`), { name });
+    console.log("Favourite added to Firebase");
+  } catch (error) {
+    console.log("Error removing favourite from firebase", error);
+  }
+};
 
 const removeFavouriteFromFirebase = async (uid, name) => {
-    try {
-        if(!name) {
-            console.error("Error remvoing favourite from firebase: Name parameter undefined"
-            );
-            return;
-        }
-        const q = querry(
-          collection(db, `users/${uid}/favourites`),
-          where ("name", "==", name)
-          );
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            deleteDoc(doc.ref);
-            console.log("Favourite removed from Firebase");
-        })
+  try {
+    if (!name) {
+      console.error(
+        "Error remvoing favourite from firebase: Name parameter undefined"
+      );
+      return;
     }
-    catch(error) {
-        console.log("error removing favourite from firebase", error);
-    }
-}
+    const q = querry(
+      collection(db, `users/${uid}/favourites`),
+      where("name", "==", name)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+      console.log("Favourite removed from Firebase");
+    });
+  } catch (error) {
+    console.log("error removing favourite from firebase", error);
+  }
+};
 const clearFavouritesFromFirebase = async (uid) => {
-    try {
-        const q = query(collection(db,`users/${uid}/favourites`));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            deleteDoc(doc.ref);
-            console.log("favourites cleared");
-
-        })
-     } catch (error) {
-            console.log("error clearing from favourite", error);
-        }
-    };
-
-
-
-
+  try {
+    const q = query(collection(db, `users/${uid}/favourites`));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+      console.log("favourites cleared");
+    });
+  } catch (error) {
+    console.log("error clearing from favourite", error);
+  }
+};
 
 export {
   auth,
