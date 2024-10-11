@@ -6,7 +6,8 @@ import {
   getFavouritesFromSource,
 } from "../store/favouritesSlice";
 import CountrySingle from "./CountrySingle";
-import { Button, Form, Col, Row, Spinner } from "react-bootstrap";
+import { Button, Form, Col, Row, Spinner, Container } from "react-bootstrap";
+import CountryCard from "./CountryCard";
 
 const Favourites = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,9 @@ const Favourites = () => {
   console.log("favouritesList: ", favouritesList);
   console.log("countriesList inside favourites: ", countriesList);
 
-
   if (Array.isArray(favouritesList) && favouritesList.length > 0) {
     countriesList = countriesList.filter((country) =>
-    favouritesList.includes(country.name.common)
+      favouritesList.includes(country.name.common)
     );
   } else {
     countriesList = [];
@@ -36,11 +36,7 @@ const Favourites = () => {
   if (countriesLoading || favouritesLoading) {
     return (
       <Col className="text-center m-5">
-        <Spinner
-        animation="border"
-        role="status"
-        className="center"
-        >
+        <Spinner animation="border" role="status" className="center">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       </Col>
@@ -75,7 +71,7 @@ const Favourites = () => {
               .includes(search.toLowerCase());
           })
           .map((country) => (
-            <CountrySingle key={country.name.common} country={country} />
+            <CountryCard key={country.name.common} country={country} />
           ))}
       </Row>
     </Container>
