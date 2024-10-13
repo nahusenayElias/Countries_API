@@ -45,7 +45,7 @@ export default function Login() {
                     <Button onClick={handleLogin}>Login</Button>
                     <br />
                     <br />
-                    <Button onClick={() => navigate / "register"}>
+                    <Button  onClick={() => navigate / "register"}>
                       Don't have an account?
                     </Button>
                   </div>
