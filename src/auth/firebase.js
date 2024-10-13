@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -68,7 +68,7 @@ const removeFavouriteFromFirebase = async (uid, name) => {
       );
       return;
     }
-    const q = querry(
+    const q = query(
       collection(db, `users/${uid}/favourites`),
       where("name", "==", name)
     );
@@ -95,12 +95,12 @@ const clearFavouritesFromFirebase = async (uid) => {
 };
 
 export {
+  clearFavouritesFromFirebase,
+  addFavouriteToFirebase,
+  registerWithEmailAndPassword,
   auth,
   db,
-  clearFavouritesFromFirebase,
-  registerWithEmailAndPassword,
   loginWithEmailAndPassword,
-  addFavouriteToFirebase,
   removeFavouriteFromFirebase,
   logout,
 };

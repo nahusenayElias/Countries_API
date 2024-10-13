@@ -21,7 +21,7 @@ const Countries = () => {
   const countries = useSelector((state) => state.countries.countries);
   const isLoading = useSelector((state) => state.countries.isLoading);
   const searchInput = useSelector((state) => state.countries.search);
-  
+
   console.log("Countries: ", countries);
   console.log("isLoading: ", isLoading);
 
