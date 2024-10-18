@@ -21,12 +21,16 @@ const CountrySingle = (props) => {
           country.capital
         }&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
       )
-      .catch((error) => console.log(error))
+      .catch((error) =>{
+      console.log(error);
+  })
       .then((response) => {
         setWeather(response.data);
         setWeatherLoading(false);
       });
   }, [country.capital]);
+  console.log("Weather: ", weather);
+
   if (isWeatherLoading) {
     return (
       <Col className="text-center-m-5">
@@ -55,7 +59,7 @@ return(
                 <div>
                   <p>
                     Right now it is <strong>{parseInt(weather.main.temp)}</strong>
-                    degree in {country.capital} and {weather.weather[0].description}
+                    degrees in {country.capital} and {weather.weather[0].description}
                   </p>
                   <Image src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}/>
                 </div>
