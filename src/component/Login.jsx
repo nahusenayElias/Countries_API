@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { loginWithEmailAndPassword } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, registerWithEmailAndPassword } from "../auth/firebase";
+import { auth } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Form, Card, Container, Row, Col } from "react-bootstrap";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,46 +15,70 @@ export default function Login() {
   const handleLogin = () => {
     loginWithEmailAndPassword(email, password);
   };
+
   return (
-    <section class="vh-100 gradient-custom">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          {/* <div class="col-12 col-md-8 col-lg-6 col-xl-5"> */}
-          <div class="col-xl-10">
-            <div class="card rounded-3 text-black">
-              <div>
-                <div>Hello {user?.name}</div>
-                <form>
-                  <div data-mdb-input-init class="form-outline mb-4">
-                    <input
-                      class="form-control"
+    <section className="vh-100 gradient-custom">
+      <Container className="py-5 h-100">
+        <Row className="d-flex justify-content-center align-items-center h-100">
+          <Col md={8} lg={6} xl={4}>
+            <Card className="text-black shadow">
+              <Card.Body className="p-5">
+                <div className="text-center mb-4">
+                  <h3 className="fw-bold mb-2">Login</h3>
+                  <p>Welcome back! Please login to your account.</p>
+                </div>
+                <Form>
+                  <Form.Group className="mb-4" controlId="formEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Full name"
+                      placeholder="Enter your email"
+                      required
                     />
-                    <br />
-                    <input
-                      class="form-control"
+                  </Form.Group>
+
+                  <Form.Group className="mb-4" controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="password"
+                      placeholder="Enter your password"
+                      required
                     />
-                    <br />
-                    <Button onClick={handleLogin}>Login</Button>
-                    <br />
-                    <br />
-                    <Button  onClick={() => navigate / "register"}>
-                      Don't have an account?
-                    </Button>
+                  </Form.Group>
+
+                  <Button
+                    variant="primary"
+                    className="w-100 mb-3"
+                    onClick={handleLogin}
+                    disabled={loading}
+                  >
+                    {loading ? "Logging in..." : "Login"}
+                  </Button>
+
+                  {error && <p className="text-danger text-center">{error.message}</p>}
+
+                  <div className="text-center">
+                    <p>
+                      Don’t have an account?{" "}
+                      <Button
+                        variant="link"
+                        className="p-0"
+                        onClick={() => navigate("/register")}
+                      >
+                        Register here
+                      </Button>
+                    </p>
                   </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 }
