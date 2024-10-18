@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const CountrySingle = (props) => {
   const location = useLocation();
-  const country = location.state.country;
+  const country = props.country || location.state.country;
   const [weather, setWeather] = useState("");
   const [isWeatherLoading, setWeatherLoading] = useState(true);
 
