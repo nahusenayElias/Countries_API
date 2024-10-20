@@ -58,7 +58,7 @@ return(
                 <h3>{country.capital}</h3>
                 <div>
                   <p>
-                    Right now it is <strong>{parseInt(weather.main.temp)}</strong>
+                    Right now it is <strong>{parseInt(weather.main.temp )} </strong>
                     degrees in {country.capital} and {weather.weather[0].description}
                   </p>
                   <Image src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}/>
