@@ -37,11 +37,11 @@ const Layout = () => {
                 {user &&
                 <Button onClick={logout}>Logout</Button>
                 }
-                <div>{user && `hello, ${user?.email}`}</div>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
+                <div>{user && `hello, ${user?.email}`}</div>
       </Row>
       <Row>
         <Outlet />
