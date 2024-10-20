@@ -58,11 +58,7 @@ const Favourites = () => {
           </Form>
         </Col>
       </Row>
-      <Row xs={2} md={3} lg={4} className="g-3">
-        <Button onClick={() => dispatch(clearFavourites())}>
-          Clear Favourites
-        </Button>
-      </Row>
+
       <Row xs={2} md={3} lg={4} className="g-3">
         {countriesList
           .filter((country) => {
@@ -73,6 +69,12 @@ const Favourites = () => {
           .map((country) => (
             <CountryCard key={country.name.common} country={country} />
           ))}
+      </Row>
+      <br />
+      <Row xs={2} md={3} lg={4} className="g-3">
+        <Button onClick={() => dispatch(clearFavourites())}>
+          Clear Favourites
+        </Button>
       </Row>
     </Container>
   );
