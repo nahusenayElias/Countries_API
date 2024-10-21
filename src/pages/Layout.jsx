@@ -41,7 +41,7 @@ const Layout = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-                <div>{user && `hello, ${user?.email}`}</div>
+                <div>{user && `Hello, ${user?.email}`}</div>
       </Row>
       <Row>
         <Outlet />
