@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Image, Spinner, Button } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import CountryNews from "./CountryNews";
 
 const CountrySingle = (props) => {
   const location = useLocation();
@@ -75,6 +76,11 @@ const CountrySingle = (props) => {
           <Button variant="success" onClick={() => navigate("/countries")}>
             Back to Countries
           </Button>
+        </Col>
+      </Row>
+      <Row className="mt-5">
+        <Col>
+          <CountryNews country={country} />
         </Col>
       </Row>
     </Container>
