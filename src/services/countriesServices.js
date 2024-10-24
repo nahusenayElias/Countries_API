@@ -12,8 +12,7 @@ const initializeCountries = () => {
   return async (dispatch) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
-
-      const countries = await getAllCountries();//Awaits countries data.
+      const countries = await getAllCountries(); //Awaits countries data.
       dispatch(getCountries(countries)); //dispatch it.
     } catch (error) {
       console.error("error fetching countries:", error);
