@@ -34,14 +34,12 @@ const Layout = () => {
                 <LinkContainer to="/login">
                   <Nav.Link>Login</Nav.Link>
                 </LinkContainer>
-                {user &&
-                <Button onClick={logout}>Logout</Button>
-                }
+                {user && <Button onClick={logout}>Logout</Button>}
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-                <div>{user && `Hello, ${user?.email}`}</div>
+        <div>{user && `Hello, ${user?.email}`}</div>
       </Row>
       <Row>
         <Outlet />
