@@ -74,7 +74,9 @@ const Register = () => {
                     {loading ? "Registering..." : "Register"}
                   </Button>
 
-                  {error && <p className="text-danger text-center">{error.message}</p>}
+                  {error && (
+                    <p className="text-danger text-center">{error.message}</p>
+                  )}
 
                   <div className="text-center">
                     <p>
